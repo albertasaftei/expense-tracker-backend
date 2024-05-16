@@ -15,6 +15,25 @@ router.get("/expenses", async (req, res) => {
   res.json(expenses);
 });
 
+router.post("/expenses", async (req, res) => {
+  const { amount, description, category, isEarning } = req.body;
+
+  const expense = await prisma.expenses.create({
+    data: {
+      amount: parseFloat(amount),
+      description,
+      isEarning,
+      category: {
+        connect: {
+          id: parseInt(category),
+        },
+      },
+    },
+  });
+
+  res.json(expense);
+});
+
 router.get("/categories", async (req, res) => {
   const categories = await prisma.category.findMany();
 
