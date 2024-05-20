@@ -29,6 +29,7 @@ model Category {
   id        Int        @id @default(autoincrement())
   name      String
   iconUrl   String
+  emoji     String     @default("")
   createdAt DateTime   @default(now())
   Expense   Expenses[]
 }
